@@ -130,8 +130,9 @@ Point operator+(const Point& left, const Point& right)
 
 
 //#define STRUCT
-//#define DISTANSE_AND_CNSTRUNCORS
+#define DISTANSE_AND_CNSTRUNCORS
 //#define ASSIGMENT_CHECK 
+//#define OPERATORS
 
 void main()
 {
@@ -206,6 +207,7 @@ void main()
 
 	//cout << HELLO(guy) << endl;
 
+#ifdef OPERATORS
 	int a = 2;
 	int b = 3;
 	a + b;
@@ -222,6 +224,8 @@ void main()
 	cout << delimiter << endl;
 	C++;
 	C.print();
+#endif // OPERATORS
+
 
 
 }
