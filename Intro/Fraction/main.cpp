@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -134,7 +134,7 @@ public:
 		Fraction inverted(denominator, numerator);
 		return inverted;
 	}
-	Fraction to_common(Fraction& other)  //Приведение к общему знаменателю
+	Fraction to_common(Fraction& other)  //РџСЂРёРІРµРґРµРЅРёРµ Рє РѕР±С‰РµРјСѓ Р·РЅР°РјРµРЅР°С‚РµР»СЋ
 	{
 		this->to_improper(); other.to_improper();
 		Fraction One = *this;
@@ -146,7 +146,7 @@ public:
 		other = Two;
 		return *this;
 	}
-	Fraction& simplification()  //Сокращение дробей
+	Fraction& simplification()  //РЎРѕРєСЂР°С‰РµРЅРёРµ РґСЂРѕР±РµР№
 	{
 		this->to_improper();
 		Fraction result;
@@ -155,7 +155,7 @@ public:
 
 		if (tempA < 0)tempA *= -1;
 
-		while (tempA != tempB) // алгоритм Евклида
+		while (tempA != tempB) // Р°Р»РіРѕСЂРёС‚Рј Р•РІРєР»РёРґР°
 		{
 			if (tempA > tempB)swap(tempA, tempB);
 			tempB = tempB - tempA;
@@ -197,8 +197,8 @@ Fraction operator-(Fraction left, Fraction right)
 Fraction operator*(Fraction left, Fraction right)
 {
 	left.to_improper(); right.to_improper();
-	return Fraction //Явно вызываем конструктор и передаём в него параметры
-		//Этот конструктор создаёт временный безимянный объект, который сразу же отправляется return-у
+	return Fraction //РЇРІРЅРѕ РІС‹Р·С‹РІР°РµРј РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Рё РїРµСЂРµРґР°С‘Рј РІ РЅРµРіРѕ РїР°СЂР°РјРµС‚СЂС‹
+		//Р­С‚РѕС‚ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃРѕР·РґР°С‘С‚ РІСЂРµРјРµРЅРЅС‹Р№ Р±РµР·РёРјСЏРЅРЅС‹Р№ РѕР±СЉРµРєС‚, РєРѕС‚РѕСЂС‹Р№ СЃСЂР°Р·Сѓ Р¶Рµ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ return-Сѓ
 		(
 			left.get_numerator() * right.get_numerator(),
 			left.get_denominator() * right.get_denominator()
@@ -206,7 +206,7 @@ Fraction operator*(Fraction left, Fraction right)
 }
 Fraction operator/(Fraction left, Fraction right) {return left * right.inverted();}
  
-                   //Comparison Operators
+                   // Comparison Operators
 
 bool operator==(Fraction left, Fraction right)
 {
@@ -241,7 +241,7 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 }
 istream& operator>>(istream& is, Fraction& obj)
 {
-	cout << "Введите целое, числитель и знаменатель. Росле каждого числа введите ENTER.\n";
+	cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ, С‡РёСЃР»РёС‚РµР»СЊ Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ. Р РѕСЃР»Рµ РєР°Р¶РґРѕРіРѕ С‡РёСЃР»Р° РІРІРµРґРёС‚Рµ ENTER.\n";
 	is >> obj.integer >> obj.numerator >> obj.denominator;
 	return is;
 }
@@ -301,43 +301,43 @@ void main()
 	Fraction C(0, 0);
 	Fraction D(0, 0, 0);
 
-	cout << "Объект A:\t "; A.print();
-	cout << "Объект B: \t"; B.print();
+	cout << "РћР±СЉРµРєС‚ A:\t "; A.print();
+	cout << "РћР±СЉРµРєС‚ B: \t"; B.print();
 	
 	cout << delimiter << endl;
 
-	C = A + B; cout << "Сложение : C = A + B = "; C.simplification(); C.print();
-	C = A - B; cout << "Вычитание: C = A - B = "; C.simplification(); C.print();
-	C = A * B; cout << "Умножение: C = A * B = "; C.simplification(); C.print();
-	C = A / B; cout << "Деление  : C = A / B = "; C.simplification(); C.print();
+	C = A + B; cout << "РЎР»РѕР¶РµРЅРёРµ : C = A + B = "; C.simplification(); C.print();
+	C = A - B; cout << "Р’С‹С‡РёС‚Р°РЅРёРµ: C = A - B = "; C.simplification(); C.print();
+	C = A * B; cout << "РЈРјРЅРѕР¶РµРЅРёРµ: C = A * B = "; C.simplification(); C.print();
+	C = A / B; cout << "Р”РµР»РµРЅРёРµ  : C = A / B = "; C.simplification(); C.print();
 
 	cout << delimiter << endl;
 
-	D = ++C; cout << "Инкремент префиксный : D = ++C "; D.print();
-	D = C++; cout << "Инкремент постфиксный: D = C++ "; D.print();
-	cout << "Инкремент постфиксный: C++ "; C.print();
+	D = ++C; cout << "РРЅРєСЂРµРјРµРЅС‚ РїСЂРµС„РёРєСЃРЅС‹Р№ : D = ++C "; D.print();
+	D = C++; cout << "РРЅРєСЂРµРјРµРЅС‚ РїРѕСЃС‚С„РёРєСЃРЅС‹Р№: D = C++ "; D.print();
+	cout << "РРЅРєСЂРµРјРµРЅС‚ РїРѕСЃС‚С„РёРєСЃРЅС‹Р№: C++ "; C.print();
 
 	cout << delimiter << endl;
 
-	D = --C; cout << "Декремент префиксный : D = --C "; C.print();
-	D = C--; cout << "Декремент постфиксный: D = C-- "; D.print();
-	cout << "Декремент постфиксный: C--; "; C.print();
+	D = --C; cout << "Р”РµРєСЂРµРјРµРЅС‚ РїСЂРµС„РёРєСЃРЅС‹Р№ : D = --C "; C.print();
+	D = C--; cout << "Р”РµРєСЂРµРјРµРЅС‚ РїРѕСЃС‚С„РёРєСЃРЅС‹Р№: D = C-- "; D.print();
+	cout << "Р”РµРєСЂРµРјРµРЅС‚ РїРѕСЃС‚С„РёРєСЃРЅС‹Р№: C--; "; C.print();
 
 	cout << delimiter << endl;
 
-	A += B; cout << "Плюс   -    равно: A += B = "; A.simplification(); A.print();
-	A -= B; cout << "Минус   -   равно: A -= B = "; A.simplification(); A.print();
-	A *= B; cout << "Умножить -  равно: A *= B = "; A.simplification(); A.print();
-	A /= B; cout << "Разделить - равно: A /= B = "; A.simplification(); A.print();
+	A += B; cout << "РџР»СЋСЃ   -    СЂР°РІРЅРѕ: A += B = "; A.simplification(); A.print();
+	A -= B; cout << "РњРёРЅСѓСЃ   -   СЂР°РІРЅРѕ: A -= B = "; A.simplification(); A.print();
+	A *= B; cout << "РЈРјРЅРѕР¶РёС‚СЊ -  СЂР°РІРЅРѕ: A *= B = "; A.simplification(); A.print();
+	A /= B; cout << "Р Р°Р·РґРµР»РёС‚СЊ - СЂР°РІРЅРѕ: A /= B = "; A.simplification(); A.print();
 
 	cout << delimiter << endl;
 
-	cout << "Равно   : A == B? --> ";  cout << A << " равно " << B << " = " << (A == B) << endl;
-	cout << "Не равно: A != B? --> ";  cout << A << " не равно " << B << " = " << (A != B) << endl;
-	cout << "Меньше  : A <  B? --> ";  cout << A << " меньше " << B << " = " << (A < B) << endl;
-	cout << "Больше  : A >  B? --> ";  cout << A << " больше " << B << " = " << (A > B) << endl;
-	cout << "Меньше или равно : A <= B? --> ";  cout << A << " меньше или равно " << B << " = " << (A <= B) << endl;
-	cout << "Больше или равно : A >= B? --> ";  cout << A << " больше или равно " << B << " = " << (A >= B) << endl;
+	cout << "Р Р°РІРЅРѕ   : A == B? --> ";  cout << A << " СЂР°РІРЅРѕ " << B << " = " << (A == B) << endl;
+	cout << "РќРµ СЂР°РІРЅРѕ: A != B? --> ";  cout << A << " РЅРµ СЂР°РІРЅРѕ " << B << " = " << (A != B) << endl;
+	cout << "РњРµРЅСЊС€Рµ  : A <  B? --> ";  cout << A << " РјРµРЅСЊС€Рµ " << B << " = " << (A < B) << endl;
+	cout << "Р‘РѕР»СЊС€Рµ  : A >  B? --> ";  cout << A << " Р±РѕР»СЊС€Рµ " << B << " = " << (A > B) << endl;
+	cout << "РњРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ : A <= B? --> ";  cout << A << " РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ " << B << " = " << (A <= B) << endl;
+	cout << "Р‘РѕР»СЊС€Рµ РёР»Рё СЂР°РІРЅРѕ : A >= B? --> ";  cout << A << " Р±РѕР»СЊС€Рµ РёР»Рё СЂР°РІРЅРѕ " << B << " = " << (A >= B) << endl;
 
-	cin >> A; cout << " A равно " << A << endl;	
+	cin >> A; cout << " A СЂР°РІРЅРѕ " << A << endl;	
 }
