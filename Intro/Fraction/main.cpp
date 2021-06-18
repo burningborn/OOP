@@ -72,6 +72,15 @@ public:
 	}
 
 	                    //Operators:
+	explicit operator int()const
+	{
+		return integer;
+	}
+	explicit operator double()const
+	{
+		
+		return integer + ((double)numerator / denominator);
+	}
 
 	Fraction& operator=(const Fraction& other)
 	{
@@ -249,6 +258,8 @@ istream& operator>>(istream& is, Fraction& obj)
 //#define CONSTRUCTOR_CHEK
 //#define ARIPHMETICAL_OPERATORS_CHECK
 //#define INCREMENT_CHECK
+//#define OPERATORS
+#define TYPE_CONVRSIONS
 
 void main()
 {
@@ -296,6 +307,7 @@ void main()
 	//Fraction A(1, 2);
 	//Fraction B(5, 11);
 	//cout << (A != B) << endl;
+#ifdef OPERATORS
 	Fraction A(3, 5);
 	Fraction B(2, 3);
 	Fraction C(0, 0);
@@ -303,7 +315,7 @@ void main()
 
 	cout << "Объект A:\t "; A.print();
 	cout << "Объект B: \t"; B.print();
-	
+
 	cout << delimiter << endl;
 
 	C = A + B; cout << "Сложение : C = A + B = "; C.simplification(); C.print();
@@ -339,5 +351,16 @@ void main()
 	cout << "Меньше или равно : A <= B? --> ";  cout << A << " меньше или равно " << B << " = " << (A <= B) << endl;
 	cout << "Больше или равно : A >= B? --> ";  cout << A << " больше или равно " << B << " = " << (A >= B) << endl;
 
-	cin >> A; cout << " A равно " << A << endl;	
+	cin >> A; cout << " A равно " << A << endl;
+#endif // OPERATORS
+
+#ifdef TYPE_CONVRSIONS
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+	int a = (int)A;
+	cout << "a = " << a << endl;
+	double b = (double)A;
+	cout << "b = " << b << endl;
+#endif // TYPE_CONVRSIONS
+
 }
