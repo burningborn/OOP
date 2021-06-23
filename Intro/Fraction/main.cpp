@@ -37,11 +37,19 @@ public:
 		this->denominator = 1;
 		//cout << "DfaultArgunentConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
+		//cout << "SingleArgunentConstructor:\t" << this << endl;
+	}
+	Fraction(double decimal)
+	{
+		integer = decimal;
+		decimal -= integer;
+		numerator = decimal * denominator;
+		//this->simplification();
 		//cout << "SingleArgunentConstructor:\t" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
@@ -250,8 +258,37 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 }
 istream& operator>>(istream& is, Fraction& obj)
 {
-	cout << "Введите целое, числитель и знаменатель. Росле каждого числа введите ENTER.\n";
+	/*cout << "Введите целое, числитель и знаменатель. Росле каждого числа введите ENTER.\n";
 	is >> obj.integer >> obj.numerator >> obj.denominator;
+	return is;*/
+
+	int integer, numerator, denomenator;
+	integer = numerator = denomenator = 0;
+	char str[256]{};
+	char* number[5]{};
+	is.getline(str, 256);
+	const char* delimiters = " (/)";
+	int i = 0;
+	//for (number[i] = strtok(str, delimiters); number[i]; number[i++] = strtok(NULL, delimiters))---????
+	for (char* pch = strtok(str, delimiters); pch; pch = strtok(NULL, delimiters), i++)
+	{
+		number[i] = pch;
+	}
+	//for (int i = 0; i < 5; i++)cout << number[i] << tab << endl;
+	switch (i)
+	{
+	case 1: integer = atoi(number[0]); break;
+	case 2: numerator = atoi(number[0]), denomenator = atoi(number[1]); break;
+	case 3:
+			integer = atoi(number[0]);
+			numerator = atoi(number[1]);
+			denomenator = atoi(number[2]);
+			break;
+	default:cout << "Что то пошло не так :-( " << endl;
+	}
+	obj.set_integer(integer);
+	obj.set_numerator(numerator);
+	obj.set_denominator(denomenator);
 	return is;
 }
 
@@ -351,7 +388,11 @@ void main()
 	cout << "Меньше или равно : A <= B? --> ";  cout << A << " меньше или равно " << B << " = " << (A <= B) << endl;
 	cout << "Больше или равно : A >= B? --> ";  cout << A << " больше или равно " << B << " = " << (A >= B) << endl;
 
-	cin >> A; cout << " A равно " << A << endl;
+	Fraction A;
+	cout << "Введите целую часть, числитель и знаменатель через пробел: ";
+	cin >> A;
+	cout << A << endl;
+	//cin >> A; cout << " A равно " << A << endl;
 #endif // OPERATORS
 
 #ifdef TYPE_CONVRSIONS
@@ -361,6 +402,9 @@ void main()
 	cout << "a = " << a << endl;
 	double b = (double)A;
 	cout << "b = " << b << endl;
+	Fraction C = 2.318;
+	cout << "C = " << (double)C << endl;
 #endif // TYPE_CONVRSIONS
 
+	
 }
