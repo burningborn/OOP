@@ -221,7 +221,7 @@ public:
 	ostream& operator<<(ostream& os, const Graduate& obj)
 	{
 		os << (Student&)obj;
-			return os << "Тема дилома: " << obj.get_subject();
+			return os << "\nТема диплома: " << obj.get_subject();
 	}
 
 //#define INHERITANCE_BASICS
