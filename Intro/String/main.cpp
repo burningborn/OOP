@@ -28,24 +28,20 @@ public:
 		return str;
 	}
 	//                        Constructors
-	explicit String(unsigned int size = 80)
+	explicit String(unsigned int size = 80):size(size), str(new char[size]{})
 	{
-		this->size = size;
-		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	String(const char str[])
+	String(const char str[]):String(strlen(str) + 1)
 	{
-		this->size = strlen(str) + 1;
-		this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 		cout << "Constructor: \t" << this << endl;
 	}
-	String(const String& other)
+	String(const String& other):String(other.str)
 	{
-		this->size = other.size;
+		/*this->size = other.size;
 		this->str = new char[size] {}; 
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];	
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];	*/
 		cout << "CopyConstructor:" << this << endl;
 	}
 	String(String&& other)
@@ -69,7 +65,7 @@ public:
 		this->size = other.size;         //2) Выполняемкопирование
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyAssignment: \t" << this << endl;
+		cout << "CopyAssignment: " << this << endl;
 		return *this;
 	}
 	char& operator[](unsigned int i)
@@ -117,7 +113,7 @@ String operator+(const String& left, const String& right)
 
 //#define CONSTRUCTORS_CHECK
 //#define INPUT_CHECK
-//#define OPERATOR_PLUS_CHECK
+#define OPERATOR_PLUS_CHECK
 //#define HOW_CAN_WE_CALL_CONSTRUCTORS
 
 void main()
@@ -147,14 +143,18 @@ void main()
 #ifdef OPERATOR_PLUS_CHECK
 	String str1 = "Hello";
 	String str2 = "World";
-	cout << delimiter << endl;
-	String str3 = str1 + str2;
-	//MoveMethods или МЕТОДЫ ПЕРЕНОСА: MoveConstructor, MoveAssignment
-	cout << delimiter << endl;
-	cout << str3 << endl;
+	//cout << delimiter << endl;
+	//String str3 = str1 + str2;
+	////MoveMethods или МЕТОДЫ ПЕРЕНОСА: MoveConstructor, MoveAssignment
+	//cout << delimiter << endl;
+	//cout << str3 << endl;
 
 	str1 += str2;
 	cout << str1 << endl;
+	cout << delimiter << endl;
+	String str3 = str1;
+	cout << delimiter << endl;
+	cout << str3 << endl;
 #endif // OPERATOR_PLUS_CHECK
 
 #ifdef HOW_CAN_WE_CALL_CONSTRUCTORS
