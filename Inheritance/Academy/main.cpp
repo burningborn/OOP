@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
 #define delimiter "\n----------------------------------------------------------------------\n"
@@ -50,14 +50,14 @@ public:
 	//                Mehods:
 	virtual void print()
 	{
-		cout << last_name << " " << first_name << " " << age << " ëåò."<<endl;
+		cout << last_name << " " << first_name << " " << age << " Ð»ÐµÑ‚."<<endl;
 	}
 
 };
 
 ostream& operator<<(ostream& os, const Human& obj)
 {
-	os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << " ëåò.";
+	os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << " Ð»ÐµÑ‚.";
 	return os;
 }
 
@@ -114,14 +114,14 @@ public:
 	void print()
 	{
 		Human::print();
-		cout << "Ñïåöèàëüíîñòü: " << specialty << ", ãðóïïà: " << group << ", óñïåâàåìîñòü: " << rating << endl;
+		cout << "Ð¡Ð¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << specialty << ", Ð³Ñ€ÑƒÐ¿Ð¿Ð°: " << group << ", ÑƒÑÐ¿ÐµÐ²Ð°ÐµÐ¼Ð¾ÑÑ‚ÑŒ: " << rating << endl;
 	}
 };
 
 ostream& operator<<(ostream& os, const Student& obj)
 {
 	os << (Human)obj << " ";
-	os << "Ñïåöèàëüíîñòü: " << obj.get_specialty() << ", ãðóïïà: " << obj.get_group() << ", óñïåâàåìîñòü: " << obj.get_rating();
+	os << "Ð¡Ð¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << obj.get_specialty() << ", Ð³Ñ€ÑƒÐ¿Ð¿Ð°: " << obj.get_group() << ", ÑƒÑÐ¿ÐµÐ²Ð°ÐµÐ¼Ð¾ÑÑ‚ÑŒ: " << obj.get_rating();
 	return os;
 }
 
@@ -168,15 +168,15 @@ public:
 	void print()
 	{
 	Human:: print();
-		cout << "Ñïåöèàëüíîñòü: " << specialty << ", îïûò ïðåàîäàâàíèÿ: " << expirience << " ëåò" << endl;
+		cout << "Ð¡Ð¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << specialty << ", Ð¾Ð¿Ñ‹Ñ‚ Ð¿Ñ€ÐµÐ°Ð¾Ð´Ð°Ð²Ð°Ð½Ð¸Ñ: " << expirience << " Ð»ÐµÑ‚" << endl;
 	}
 };
 
 ostream& operator<<(ostream& os, const Theacher& obj)
 {
 	os << (Human)obj << " ";
-	os << ", ñïåöèàëüíîñòü: " << obj.get_specialty()
-		<< ", îïûò ïðåïîäàâàíèÿ" << obj.get_expirience() << " ëåò";
+	os << ", ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << obj.get_specialty()
+		<< ", Ð¾Ð¿Ñ‹Ñ‚ Ð¿Ñ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ð½Ð¸Ñ" << obj.get_expirience() << " Ð»ÐµÑ‚";
 	return os;
 }
 
@@ -220,15 +220,15 @@ public:
 	void print()
 	{
 		Human::print();
-		cout << "Òåìà: " << topic << ", ðåøåíèå: " << decision << endl;
+		cout << "Ð¢ÐµÐ¼Ð°: " << topic << ", Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ: " << decision << endl;
 	}
 
 };
 	ostream& operator<<(ostream& os, const Graduate& obj)
 	{
 		os << (Human)obj << " ";
-		os << "Òåìà: " << obj.get_topic() 
-		<< ", ðåøåíèå: " << obj.get_decision();
+		os << "Ð¢ÐµÐ¼Ð°: " << obj.get_topic() 
+		<< ", Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ: " << obj.get_decision();
 		return os;
 	}
 
@@ -238,9 +238,9 @@ void main()
 {
 	setlocale(LC_ALL, "Rus");
 #ifdef INHERITANCE_BASICS
-	/*Human human("Òóïåíêî", "Âàñèëèé", 18);
+	/*Human human("Ð¢ÑƒÐ¿ÐµÐ½ÐºÐ¾", "Ð’Ð°ÑÐ¸Ð»Ð¸Ð¹", 18);
 human.print();	*/
-	Student stud("Òóïåíêî ", "Âàñèëèé", 18, "ÐÏÎ", "BV_123", 43.4);
+	Student stud("Ð¢ÑƒÐ¿ÐµÐ½ÐºÐ¾ ", "Ð’Ð°ÑÐ¸Ð»Ð¸Ð¹", 18, "Ð ÐŸÐž", "BV_123", 43.4);
 	stud.print();
 	Theacher Albert("Einstein", "Albert", 150, "Astrophisics", 120);
 	Albert.print();
@@ -249,15 +249,15 @@ human.print();	*/
 	//                POINTERS TO BASE CLASS
 	Human* group[] =
 	{
-		new Student("Âàñèëüåâ", "Àëåêñàíäð", 23, "ÐÏÎ", "ÏÂ_011", 90),
-		new Student("Âàñèëüåâà", "Ìàðãàðèòà", 25, "ÐÏÎ", "ÏÂ_011", 90),
-		new Theacher("Êîâòóí", "Îëåã", 36, "Ðàçðàáîòêà ïðèëîæåíèé íà Ñ++", 6),
-		new Student("Èâëåâ", "Àëåêñàíäð", 25, "ÐÏÎ", "ÏÂ_011", 95),
-		new Student("Ðàõìàíèí", "Íèêîëàé", 28, "ÐÏÎ", "ÏÂ_011", 98),
-		new Theacher("Ðîìàíîâ", "Àíäðåé", 30, "HardWare PC", 6),
-		new Student("Íóññ", "Äìèòðèé", 22, "ÐÏÎ", "ÏÂ_011", 100),
-		new Student("Áîðí", "Åâãåíèé", 35, "ÐÏÎ", "ÏÂ_011", 99),
-		new Graduate("Ïðîãèí", "Èâàí", 20, "Îñîáåííîñòè ðàçðàáîòêè ïðîãðàìíîãî àóäèî ïëåéåðà", "Ïðàêòèêà")
+		new Student("Ð’Ð°ÑÐ¸Ð»ÑŒÐµÐ²", "ÐÐ»ÐµÐºÑÐ°Ð½Ð´Ñ€", 23, "Ð ÐŸÐž", "ÐŸÐ’_011", 90),
+		new Student("Ð’Ð°ÑÐ¸Ð»ÑŒÐµÐ²Ð°", "ÐœÐ°Ñ€Ð³Ð°Ñ€Ð¸Ñ‚Ð°", 25, "Ð ÐŸÐž", "ÐŸÐ’_011", 90),
+		new Theacher("ÐšÐ¾Ð²Ñ‚ÑƒÐ½", "ÐžÐ»ÐµÐ³", 36, "Ð Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ð¹ Ð½Ð° Ð¡++", 6),
+		new Student("Ð˜Ð²Ð»ÐµÐ²", "ÐÐ»ÐµÐºÑÐ°Ð½Ð´Ñ€", 25, "Ð ÐŸÐž", "ÐŸÐ’_011", 95),
+		new Student("Ð Ð°Ñ…Ð¼Ð°Ð½Ð¸Ð½", "ÐÐ¸ÐºÐ¾Ð»Ð°Ð¹", 28, "Ð ÐŸÐž", "ÐŸÐ’_011", 98),
+		new Theacher("Ð Ð¾Ð¼Ð°Ð½Ð¾Ð²", "ÐÐ½Ð´Ñ€ÐµÐ¹", 30, "HardWare PC", 6),
+		new Student("ÐÑƒÑÑ", "Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹", 22, "Ð ÐŸÐž", "ÐŸÐ’_011", 100),
+		new Student("Ð‘Ð¾Ñ€Ð½", "Ð•Ð²Ð³ÐµÐ½Ð¸Ð¹", 35, "Ð ÐŸÐž", "ÐŸÐ’_011", 99),
+		new Graduate("ÐŸÑ€Ð¾Ð³Ð¸Ð½", "Ð˜Ð²Ð°Ð½", 20, "ÐžÑÐ¾Ð±ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸ Ñ€Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð½Ð¾Ð³Ð¾ Ð°ÑƒÐ´Ð¸Ð¾ Ð¿Ð»ÐµÐ¹ÐµÑ€Ð°", "ÐŸÑ€Ð°ÐºÑ‚Ð¸ÐºÐ°")
 	};
 
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
