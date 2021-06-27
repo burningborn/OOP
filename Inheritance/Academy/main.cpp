@@ -180,36 +180,30 @@ ostream& operator<<(ostream& os, const Theacher& obj)
 	return os;
 }
 
-class Graduate : public Human
+class Graduate : public Student
 {
-	string topic;
-	string decision;
+	string subject;
+	//Theacher instructor;
 public:
-	const string& get_topic()const
+	const string& get_subject()const
 	{
-		return topic;
+		return subject;
 	}
-	const string& get_decision()const
+	
+	void set_subject(const string& subject)
 	{
-		return decision;
+		this->subject = subject;
 	}
-	void set_topic(const string& topic)
-	{
-		this->topic = topic;
-	}
-	void set_decision(const string& decision)
-	{
-		this->decision = decision;
-	}
+	
 	//				Constructors:
 	Graduate
 	(
 		const string& last_name, const string& first_name, unsigned int age,
-		const string& topic, const string& decision
-	) :Human(last_name, first_name, age)
+		const string& specialty, const string& group, double rating,
+		const string& subject
+	) :Student(last_name, first_name, age, specialty, group, rating)
 	{
-		this->topic = topic;
-		this->decision = decision;
+		this->subject = subject;		
 		cout << "GConstructor: " << endl;
 	}
 	~Graduate()
@@ -219,17 +213,15 @@ public:
 	//              Methods
 	void print()
 	{
-		Human::print();
-		cout << "Тема: " << topic << ", решение: " << decision << endl;
+		Student::print();
+		cout << "Тема: " << subject << endl;
 	}
 
 };
 	ostream& operator<<(ostream& os, const Graduate& obj)
 	{
-		os << (Human)obj << " ";
-		os << "Тема: " << obj.get_topic() 
-		<< ", решение: " << obj.get_decision();
-		return os;
+		os << (Student&)obj;
+			return os << "Тема дилома: " << obj.get_subject();
 	}
 
 //#define INHERITANCE_BASICS
@@ -253,11 +245,11 @@ human.print();	*/
 		new Student("Васильева", "Маргарита", 25, "РПО", "ПВ_011", 90),
 		new Theacher("Ковтун", "Олег", 36, "Разработка приложений на С++", 6),
 		new Student("Ивлев", "Александр", 25, "РПО", "ПВ_011", 95),
-		new Student("Рахманин", "Николай", 28, "РПО", "ПВ_011", 98),
+		new Graduate("Рахманин", "Николай", 28, "РПО", "ПВ_011", 98, "Разработка кросплатформенной обучающей игры"),
 		new Theacher("Романов", "Андрей", 30, "HardWare PC", 6),
 		new Student("Нусс", "Дмитрий", 22, "РПО", "ПВ_011", 100),
 		new Student("Борн", "Евгений", 35, "РПО", "ПВ_011", 99),
-		new Graduate("Прогин", "Иван", 20, "Особенности разработки програмного аудио плейера", "Практика")
+		
 	};
 
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
