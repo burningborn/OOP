@@ -7,63 +7,81 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n----------------------------------------------------------------------------\n"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////     CLASS DECLARATION (ОБЪЯВЛЕНИЕ КЛАССА)         ////////////////////////////////////////////
+
 class String;
 String operator+(const String& left, const String& right);
 
-class String
+class String           //     ОПИСАНИЕ КЛАССА
 {
 	unsigned int size; //     Размер строки в байтах
 	char* str;         //     Указатель на строку в динамической памяти
 public:
-	unsigned int get_size()const
-	{
-		return size;
-	}
-	const char* get_str()const
-	{
-		return str;
-	}
-	char* get_str()
-	{
-		return str;
-	}
+	unsigned int get_size()const;	
+	const char* get_str()const;	
+	char* get_str();	
 	//                        Constructors
-	explicit String(unsigned int size = 80)
+	explicit String(unsigned int size = 80);	
+	String(const char str[]);
+	String(const String& other);
+	String(String&& other);
+	~String();
+	//                       Operators
+	String& operator=(const String& other);	
+	char& operator[](unsigned int i);	
+	const char operator[](unsigned int i)const;	
+	String& operator+=(const String& other);	
+	//                       Methods
+	void print()const;
+};
+
+////////////////////     CLASS DECLARATION END (КОНЕЦ ОБЪЯВЛЕНИЯ КЛАССА)         ////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////        CLASS DEFINITION (ОПРЕДЕЛЕНИЕ КЛАССА)          //////////////////////////////////////////////////
+
+	unsigned int String::get_size()const{return size;}
+	const char* String::get_str()const{return str;}
+	char* String::get_str(){return str;}
+	//                        Constructors
+	explicit String::String(unsigned int size = 80)
 	{
 		this->size = size;
 		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 	}
-	String(const char str[])
+	String::String(const char str[])
 	{
 		this->size = strlen(str) + 1;
 		this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 		cout << "Constructor: \t" << this << endl;
 	}
-	String(const String& other)
+	String::String(const String& other)
 	{
 		this->size = other.size;
-		this->str = new char[size] {}; 
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];	
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
-	String(String&& other)
+	String::String(String&& other)
 	{
 		this->size = other.size;
-		this->str = other.str;	
+		this->str = other.str;
 		other.str = nullptr;
 		cout << "MoveConstructor:" << this << endl;
 	}
 
-	~String()
+	String::~String()
 	{
 		delete[] this->str;
 		cout << "Destructor: \t" << this << endl;
 	}
 	//                       Operators
-	String& operator=(const String& other)
-	{    
+	String& String::operator=(const String& other)
+	{
 		if (this == &other)return *this;   //0) Проверяем, не является ли this и other одним и тем же объектом
 		delete[] this->str;	              //1) Удаляем старое значение объекта 
 		this->size = other.size;         //2) Выполняемкопирование
@@ -72,35 +90,33 @@ public:
 		cout << "CopyAssignment: \t" << this << endl;
 		return *this;
 	}
-	char& operator[](unsigned int i)
+	char& String::operator[](unsigned int i)
 	{
 		return str[i];
 	}
-	const char operator[](unsigned int i)const
+	const char String::operator[](unsigned int i)const
 	{
 		return str[i];
 	}
-	String& operator+=(const String& other)
+	String& String::operator+=(const String& other)
 	{
-		
+
 		return *this = *this + other;
 	}
 	//                       Methods
-	void print()const
+	void String::print()const
 	{
 		cout << "Size " << size << endl;
 		cout << "Str " << str << endl;
 	}
-};
-
-std::ostream& operator<<(std::ostream& os, const String& obj)
-{
-	return os << obj.get_str();
-}
-std::istream& operator>> (std::istream& is, const String& obj)
-{
-	return is >> obj.get_str();
-}
+//std::ostream& operator<<(std::ostream& os, const String& obj)
+//{
+//	return os << obj.get_str();
+//}
+//std::istream& operator>> (std::istream& is, const String& obj)
+//{
+//	return is >> obj.get_str();
+//}
 
 String operator+(const String& left, const String& right)
 {
@@ -114,10 +130,12 @@ String operator+(const String& left, const String& right)
 	return cat;
 }
 
+////////////////////        CLASS DEFINITION END (КОНЕЦ ОПРЕДЕЛЕНИЯ КЛАССА)          //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //#define CONSTRUCTORS_CHECK
 //#define INPUT_CHECK
-//#define OPERATOR_PLUS_CHECK
+#define OPERATOR_PLUS_CHECK
 //#define HOW_CAN_WE_CALL_CONSTRUCTORS
 
 void main()
