@@ -3,6 +3,8 @@ using namespace std;
 
 #define delimiter "\n----------------------------------------------------------------------\n"
 
+#define OSTREAM_FOR_HUMAN_ONLY
+
 class Human
 {
 	string last_name;
@@ -48,17 +50,17 @@ public:
 	}
 
 	//                Mehods:
-	virtual void print()
+	virtual ostream& print(ostream& os) const
 	{
-		cout << last_name << " " << first_name << " " << age << " лет."<<endl;
+		return os << last_name << " " << first_name << " " << age << " лет."<<endl;
 	}
 
 };
 
 ostream& operator<<(ostream& os, const Human& obj)
 {
-	os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << " лет.";
-	return os;
+	//os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << " лет.";
+	return obj.print(os);
 }
 
 class Student : public Human
@@ -111,19 +113,22 @@ public:
 
 	//				Methods:
 
-	void print()
+	ostream& print(ostream& os) const
 	{
-		Human::print();
-		cout << "Специальность: " << specialty << ", группа: " << group << ", успеваемость: " << rating << endl;
+		Human::print(os);
+		return os << "Специальность: " << specialty << ", группа: " << group << ", успеваемость: " << rating;
 	}
 };
 
+#ifndef OSTREAM_FOR_HUMAN_ONLY
 ostream& operator<<(ostream& os, const Student& obj)
 {
-	os << (Human)obj << " ";
-	os << "Специальность: " << obj.get_specialty() << ", группа: " << obj.get_group() << ", успеваемость: " << obj.get_rating();
-	return os;
+	//os << (Human)obj << " ";
+	//os << "Специальность: " << obj.get_specialty() << ", группа: " << obj.get_group() << ", успеваемость: " << obj.get_rating();
+	return obj.print(os);
 }
+#endif // !OSTREAM_FOR_HUMAN_ONLY
+
 
 class Theacher : public Human
 {
@@ -165,20 +170,23 @@ public:
 
 	//				Methods:
 
-	void print()
+	ostream& print(ostream& os) const
 	{
-	Human:: print();
-		cout << "Специальность: " << specialty << ", опыт преаодавания: " << expirience << " лет" << endl;
+	Human:: print(os);
+		return os << "Специальность: " << specialty << ", опыт преаодавания: " << expirience << " лет.";
 	}
 };
 
+#ifndef OSTREAM_FOR_HUMAN_ONLY
 ostream& operator<<(ostream& os, const Theacher& obj)
 {
-	os << (Human)obj << " ";
+	/*os << (Human)obj << " ";
 	os << ", специальность: " << obj.get_specialty()
-		<< ", опыт преподавания" << obj.get_expirience() << " лет";
-	return os;
+		<< ", опыт преподавания" << obj.get_expirience() << " лет";*/
+	return obj.print(os);
 }
+#endif // !OSTREAM_FOR_HUMAN_ONLY
+
 
 class Graduate : public Student
 {
@@ -211,20 +219,25 @@ public:
 		cout << "GDestructor: " << endl;
 	}
 	//              Methods
-	void print()
+	ostream& print(ostream& os) const
 	{
-		Student::print();
-		cout << "Тема: " << subject << endl;
+		Student::print(os);
+		return os << ". Тема проекта: " << subject << endl;
 	}
 
 };
-	ostream& operator<<(ostream& os, const Graduate& obj)
-	{
-		os << (Student&)obj;
-			return os << "Тема дилома: " << obj.get_subject();
-	}
+#ifndef OSTREAM_FOR_HUMAN_ONLY
+ostream& operator<<(ostream& os, const Graduate& obj)
+{
+	/*os << (Student&)obj;*/
+		//return os << "Тема дилома: " << obj.get_subject();
+	return obj.print(os);
+}
+#endif // !OSTREAM_FOR_HUMAN_ONLY
+
 
 //#define INHERITANCE_BASICS
+
 
 void main()
 {
@@ -252,20 +265,22 @@ human.print();	*/
 		
 	};
 
+	cout << delimiter << endl;
+
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{
 		//group[i]->print();
 		//cout << *group[i] << endl;
-		cout << delimiter << endl;
+		/*cout << delimiter << endl;
 		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
 		if (typeid(*group[i]) == typeid(Theacher))cout << *dynamic_cast<Theacher*>(group[i]) << endl;
-		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;
-	}
+		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;*/
+		cout << *group[i] << endl;
 		cout << delimiter << endl;
+	}
 
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{
-		delete[] group[i];
-		//cout << delimiter << endl;
+		delete[] group[i];		
 	}
 }
