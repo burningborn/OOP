@@ -46,7 +46,7 @@ public:
 	const char* String::get_str()const{return str;}
 	char* String::get_str(){return str;}
 	//                        Constructors
-	explicit String::String(unsigned int size = 80)
+	String::String(unsigned int size)
 	{
 		this->size = size;
 		this->str = new char[size] {};
@@ -109,14 +109,14 @@ public:
 		cout << "Size " << size << endl;
 		cout << "Str " << str << endl;
 	}
-//std::ostream& operator<<(std::ostream& os, const String& obj)
-//{
-//	return os << obj.get_str();
-//}
-//std::istream& operator>> (std::istream& is, const String& obj)
-//{
-//	return is >> obj.get_str();
-//}
+std::ostream& operator<<(std::ostream& os, const String& obj)
+{
+	return os << obj.get_str();
+}
+std::istream& operator>> (std::istream& is, const String& obj)
+{
+	return is >> obj.get_str();
+}
 
 String operator+(const String& left, const String& right)
 {
