@@ -1,7 +1,6 @@
 ﻿#include"Graduate.h"
 
 	const string& Graduate::get_subject()const{return subject;}
-
 	void Graduate::set_subject(const string& subject){this->subject = subject;}
 
 	Graduate::Graduate

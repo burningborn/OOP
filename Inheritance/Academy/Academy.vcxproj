@@ -141,16 +141,18 @@
   <ItemGroup>
     <ClCompile Include="Graduate.cpp" />
     <ClCompile Include="Human.cpp" />
+    <ClCompile Include="Leaver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Theacher.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graduate.h" />
     <ClInclude Include="Human.h" />
+    <ClInclude Include="Leaver.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Theacher.h" />
   </ItemGroup>

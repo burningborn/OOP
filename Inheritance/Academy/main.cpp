@@ -4,6 +4,7 @@ using namespace std;
 #include"Student.h"
 #include"Theacher.h"
 #include"Graduate.h"
+#include"Leaver.h"
 
 #define delimiter "\n----------------------------------------------------------------------\n"
 
@@ -30,7 +31,7 @@ human.print();	*/
 		new Student("Ивлев", "Александр", 25, "РПО", "ПВ_011", 95),
 		new Graduate("Рахманин", "Николай", 28, "РПО", "ПВ_011", 98, "Разработка кросплатформенной обучающей игры"),
 		new Theacher("Романов", "Андрей", 30, "HardWare PC", 6),
-		new Student("Нусс", "Дмитрий", 22, "РПО", "ПВ_011", 100),
+		new Leaver("Нусс", "Дмитрий", 22, "РПО", "ПВ_011", 100,"Wold_of_Tanks", "Красный"),
 		new Student("Борн", "Евгений", 35, "РПО", "ПВ_011", 99),
 		
 	};
@@ -41,6 +42,7 @@ human.print();	*/
 		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
 		if (typeid(*group[i]) == typeid(Theacher))cout << *dynamic_cast<Theacher*>(group[i]) << endl;
 		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Leaver))cout << *dynamic_cast<Leaver*>(group[i]) << endl;
 	}
 		cout << delimiter << endl;
 
