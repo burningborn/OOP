@@ -177,7 +177,7 @@ namespace Geometry
 		}
 		void set_start_y(UINT y)
 		{
-			if (y = 700)y = 700;
+			if (y >= 700)y = 700;
 			start_y = y;
 		}
 		Circle(Color color, double radius, UINT start_x = 0, UINT start_y = 0) :Shape(color)
@@ -190,7 +190,7 @@ namespace Geometry
 
 		double get_area()const
 		{
-			return M_PI * pow(radius,2);
+			return M_PI * pow(radius, 2);
 		}
 		double get_perimeter()const
 		{
@@ -220,7 +220,7 @@ namespace Geometry
 			//Ellipse(hdc, 200, 200, 500, 500);
 			Ellipse(hdc, start_x, start_y, start_x + get_radius(), start_y + get_radius());
 
-		//После того как кисть использовани, её нужно удалить
+			//После того как кисть использовани, её нужно удалить
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
 			ReleaseDC(hwnd, hdc);
@@ -236,10 +236,96 @@ namespace Geometry
 			drow();
 		}
 	};
-class Treanle :public Shape
-{
 
-};
+	class Triangle :public Shape
+		{
+		public:
+			Triangle(Color color) :Shape(color) {}
+			~Triangle() {}
+
+	};
+
+	class EquilateralTriangle : Triangle
+	{
+		UINT start_x;
+		UINT start_y;
+			double side;
+		public:
+			double get_side()const { return side; }
+			double get_hight()const
+			{
+				return side * pow(3, .5) / 2;
+			}
+			void set_side(double side)
+			{
+				if (side <= 0)side = 1;
+				this->side = side;
+			}
+			void set_start_x(UINT x)
+			{
+				if (x >= 1000)x = 1000;
+				start_x = x;
+			}
+			void set_start_y(UINT y)
+			{
+				if (y >= 700)y = 700;
+				start_y = y;
+			}
+			EquilateralTriangle(Color color, double side, UINT start_x=0, UINT start_y=0) :Triangle(color)
+			{
+				set_side(side);
+				set_start_x(start_x);
+				set_start_y(start_y);
+			}
+			~EquilateralTriangle(){}
+			double get_area()const
+			{
+				return side * 3;
+			}
+
+			double get_perimeter()const
+			{
+				return side * 3;
+			}
+			void drow()const
+			{
+				HWND hwnd = GetConsoleWindow();
+				HDC hdc = GetDC(hwnd);
+
+				HPEN hPen = CreatePen(PS_SOLID, 5, color);
+				HBRUSH hBrush = CreateSolidBrush(color);
+
+				SelectObject(hdc, hPen);
+				SelectObject(hdc, hBrush);
+				POINT points[] =
+				{
+					{start_x, start_y + side},
+				    {start_x + side, start_y + side},
+					{start_x + side / 2, start_y + side - get_hight()}
+				};
+
+				Polygon(hdc, points, sizeof(points) / sizeof(POINT));
+
+				DeleteObject(hPen);
+				DeleteObject(hBrush);
+
+				ReleaseDC(hwnd, hdc);
+			}
+
+			void info()const
+			{
+				cout << endl;
+				cout << "Треугольник\n";
+				cout << "Дина стороны: " << side << endl;
+				cout << "Высота      : " << side << endl;
+				cout << "Площадь: " << get_area() << endl;
+				cout << "Периметр: " << get_perimeter() << endl;
+				cout << endl;
+				drow();
+			}
+
+	};
+	//class IsoscelesTriange
 }
 
 //Rectangle(HDC hdc, UINT left_up_x, UNIT left_up_y, UNIT right _down_x, UNIT right _down_y);
@@ -261,4 +347,7 @@ void main()
 
 	Geometry::Circle circle(Geometry::Color::red, 100, 880, 200);
 	circle.info();
+
+	Geometry::EquilateralTriangle equil_triangle(Geometry::Color::red, 200, 200, 200);
+	equil_triangle.info();
 }
