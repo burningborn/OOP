@@ -66,7 +66,7 @@ namespace Geometry
 			if (y > 700)y = 700;
 			start_y = y;
 		}
-		Square(Color color, UINT start_x, UINT start_Y,  double side) :Shape(color, start_x, start_y )
+		Square(Color color, UINT start_x, UINT start_y,  double side) :Shape(color, start_x, start_y )
 		{
 			set_side(side);
 		}
@@ -509,6 +509,7 @@ void main()
 
 	Geometry::Square square(Geometry::Color::red, 200, 600, 200);
 	square.info();
+	cin.get();
 
 	Geometry::Rectangles rectangle(Geometry::Color::blue, 100, 350, 300, 400);
 	rectangle.info();
