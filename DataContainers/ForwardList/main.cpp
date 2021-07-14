@@ -14,8 +14,6 @@ TODO:
 */
 
 #define tab "\t"
-//ostream& operator<<(ostream& os, Element& obj);
-//ostream& operator<<(ostream& os, ForwardList& obj);
 
 class Element
 {
@@ -38,6 +36,7 @@ public:
 		cout << "EDestructor:\t" << this << endl;
 	}
 	friend class ForwardList;
+	friend class Iterator;
 	Element& operator=(int Data) 
 	{ 
 		this->set_Data(Data); 
@@ -45,11 +44,45 @@ public:
 };
 int Element::count = 0;
 
+class Iterator
+{
+	Element* Temp;
+public:
+	Iterator(Element* Temp = nullptr) :Temp(Temp)
+	{
+		cout << "IConstructor:\t" << this << endl;
+	}
+	~Iterator()
+	{
+		cout << "IDestructor:\t" << this << endl;
+	}
+	Iterator& operator++()
+	{
+		Temp = Temp->pNext;
+		return *this;
+	}
+	bool operator == (const Iterator & other) const
+	{
+		return this->Temp == other.Temp;
+	}
+	bool operator != (const Iterator & other) const
+	{
+		return this->Temp != other.Temp;
+	}
+	int& operator*()
+	{
+		return Temp->Data;
+	}
+};
+
 class ForwardList
 {
 	Element* Head;
 	size_t size;
 public:
+	Iterator begin() { return Head; }
+	Iterator end() { return nullptr; }
+
 	Element& get_Head() { return *Head; }
 	size_t get_size() { return size; }
 	int set_size(int n)
@@ -67,6 +100,14 @@ public:
 	{
 		while (size--)push_front(0);
 		cout << "LArgConstructor:\t" << this << endl;
+	}
+	ForwardList(const std::initializer_list<int>& il) :ForwardList()
+	{
+		cout << typeid(il.begin()).name() << endl;
+		for (int const* it = il.begin(); it != il.end(); it++)
+		{
+			push_back(*it);
+		}
 	}
 	ForwardList(const ForwardList& other) :ForwardList()
 	{
@@ -88,17 +129,6 @@ public:
 	//			Adding elements:
 	void push_front(int Data)
 	{
-		//Добавление элемента в начало списка:
-
-		////1) Создаем элемент:
-		//Element* New = new Element(Data);
-
-		////2) Прикрепляем новый элемент к списку:
-		//New->pNext = Head;
-
-		////3) Адрес нового элемента помещаем в голову, 
-		//Head = New;
-		//после чего, новый элемент является начальным элементом списка
 		Head = new Element(Data, Head);
 		size++;
 	}
@@ -225,8 +255,8 @@ public:
 
 //#define BASE_CHECK	//Almost DONE
 //#define SIZE_CONSTRUCTOR_AND_SUBSCRIPT
-#define COPY_METHODS
-//#define HARDCORE
+//#define COPY_METHODS
+#define HARDCORE
 
 void main()
 {
@@ -287,13 +317,6 @@ void main()
 	list3.print();
 #endif // COPY_METHODS
 
-#ifdef HARDCORE
-	ForwardList list = { 3, 5, 8, 13, 21 };
-	for (int i : list)
-		cout << i << tab;
-	cout << endl;
-#endif // INIT_LIST_LIKE_ARRAY
-
 #ifdef SIZE_CONSTRUCTOR_AND_SUBSCRIPT
 
 	int n; cout << "Введите размер списка: "; cin >> n;
@@ -315,5 +338,25 @@ void main()
 		std::cerr << e.what() << endl;
 	}
 #endif // SIZE_CONSTRUCTOR_AND_SUBSCRIPT
+
+#ifdef HARDCORE
+
+	/*int arr[] = { 1024,2048,4096,8192 };
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+		cout << arr[i] << tab;
+	cout << endl;
+	for (int i : arr)
+		cout << i << tab;
+	cout << endl;*/
+
+	ForwardList list = { 3, 5, 8, 13, 21 };
+	list.print();
+	//for (Iterator it = list.begin(); it != list.end(); ++it)cout << *it << tab;
+	cout << endl;
+	for (int i : list)
+		cout << i << tab;
+	cout << endl;
+#endif // INIT_LIST_LIKE_ARRAY
+
 
 }
