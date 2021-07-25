@@ -45,12 +45,46 @@ class List
 		friend class ReverseIterator;
 	}*Head, *Tail;	
 	size_t size;
-public:
-	class Iterator
+	class BaseIterator
 	{
+protected:
 		Element* Temp;
 	public:
-		Iterator(Element* Temp = nullptr) :Temp(Temp)
+		BaseIterator(Element* Temp) :Temp(Temp)
+		{
+			cout << "BitConstrucor: \t" << this << endl;
+		}
+		~BaseIterator()
+		{
+			cout << "BitDestrucor: \t" << this << endl;
+		}
+
+		// Operators
+
+		bool operator==(const BaseIterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const BaseIterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+
+		const int& operator*()const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+
+	};
+public:
+	class Iterator :public BaseIterator
+	{
+	public:
+		Iterator(Element* Temp = nullptr) :BaseIterator(Temp)
 		{
 #ifdef DEBUG
 			cout << "ItConstructor:\t" << this << endl;
@@ -86,29 +120,12 @@ public:
 			Temp = Temp->pPrev;
 			return old;
 		}
-		bool operator==(const Iterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const Iterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
-
-		const int& operator*()const
-		{
-			return Temp->Data;
-		}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
+		
 	};
-	class ReverseIterator
+	class ReverseIterator: public BaseIterator
 	{
-		Element* Temp;
 	public:
-		ReverseIterator(Element* Temp = nullptr) :Temp(Temp)
+		ReverseIterator(Element* Temp = nullptr) :BaseIterator(Temp)
 		{
 #ifdef DEBUG
 			cout << "RItConstructor:\t" << this << endl;
@@ -145,23 +162,6 @@ public:
 			return old;
 		}
 
-		bool operator==(const ReverseIterator& other)const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const ReverseIterator& other)const
-		{
-			return this->Temp != other.Temp;
-		}
-		
-		const int& operator*()const
-		{
-			return Temp->Data;
-		}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
 	};
 	size_t get_size() { return size; }
 	Iterator begin() { return Head; }
