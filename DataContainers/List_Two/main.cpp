@@ -191,203 +191,239 @@ public:
 			return Temp->Data;
 		}
 	};
-	size_t get_size() { return size; }
-	ConstIterator begin() { return Head; }
-	ConstIterator end() { return nullptr; }
-	const ConstIterator cbegin()const { return Head; }
-	const ConstIterator cend()const { return nullptr; }
-	ConstReverseIterator rbegin(){ return Tail; }
-	ConstReverseIterator rend() { return nullptr; }
-	const ConstReverseIterator crbegin()const { return Tail; }
-	const ConstReverseIterator crend()const { return nullptr; }
+	size_t get_size();
+	ConstIterator begin();
+	ConstIterator end();
+	const ConstIterator cbegin()const;
+	const ConstIterator cend()const;
+	ConstReverseIterator rbegin();
+	ConstReverseIterator rend();
+	const ConstReverseIterator crbegin()const;
+	const ConstReverseIterator crend()const;
 
 
-	List()
-	{
-		Head = Tail = nullptr;
-		size = 0;
-		cout << "LConstructor:\t" << this << endl;
-	}
-	explicit List(size_t size, int value = int()):List()
-	{
-		while (size--)push_back(value);
-		cout << "LConstructor:\t" << this << endl;
-	}
-	List(const std::initializer_list<int>&il):List()
-	{
-		cout << typeid(il.begin()).name() << endl;
-		for (int const* it = il.begin(); it != il.end(); it++)
-			push_back(*it);
-	}
-	List(const List& other) : List()
-	{
-		for (ConstIterator it = other.cbegin(); it != other.cend(); it++)
-			push_back(*it);
-		cout << "LCopyConstructor\t" << this << endl;
-	}
-	List(List&& other)
-	{
-		this->size = other.size;
-		this->Head = other.Head;
-		this->Tail = other.Tail;
-		other.Head = other.Tail = nullptr;
-		cout << "LMoveConstructor\t" << this << endl;
-	}
-	~List()
-	{
-		//while (Head)pop_front();
-		while (Tail)pop_back();
-		cout << "LDestructor:\t" << this << endl;
-	}
+	List();
+	explicit List(size_t size, int value = int());
+	List(const std::initializer_list<int>& il);
+	List(const List& other);
+	List(List&& other);
+	~List();
 
 	                 // Operators
-	int& operator[](size_t index)
-	{
-		if (index >= size)throw std::exception("Error: out of range");
-		Element* Temp;
-		if (index < size / 2)
-		{
-			Temp = Head;
-			for (int i = 0; i < index; i++)Temp = Temp->pNext;
-		}
-		else
-		{
-			Temp = Tail;
-			for (int i = 0; i < size - index - 1; i++)Temp = Temp->pPrev;
-		}
-		return Temp->Data;
-	}
+	int& operator[](size_t index);
 
 	                // Edd elements
 
-	void push_front(int Data)
-	{
-		if (Head == nullptr && Tail == nullptr)
-		{
-			Head = Tail = new Element(Data);
-			size++;
-			return;
-		}
-		Element* New = new Element(Data);
-		New->pNext = Head;
-		Head->pPrev = New;
-		Head = New;
-		size++;
-	}
-	void push_back(int Data)
-	{
-		if(Head == nullptr && Tail == nullptr)
-		{
-			Head = Tail = new Element(Data);
-			size++;
-			return;
-		}
-		Element* New = new Element(Data);
-		New->pPrev = Tail;
-		Tail->pNext = New;
-		Tail = New;
-		size++;
-
-	}
-	void insert(size_t index, int Data)
-	{
-		if (index > size)return;
-		if (index == 0)return push_front(Data);
-		if (index == size)return push_back(Data);
-		Element* Temp;
-		if (index < size / 2)
-		{
-			Temp = Head;
-			for (size_t i = 0; i < index; i++)Temp = Temp->pNext;
-		}
-		else
-		{
-			Temp = Tail;
-			for (size_t i = 0; i < index; i++)Temp = Temp->pPrev;
-		}
-		Element* New = new Element(Data);
-		New->pPrev = Temp->pPrev;
-		New->pNext = Temp;
-		Temp->pPrev->pNext = New;
-		Temp->pPrev = New;
-		size++;
-	}
+	void push_front(int Data);
+	void push_back(int Data);
+	void insert(size_t index, int Data);
 
 	                //Removing elements:
 	
-	void pop_front()
-	{
-		if (Head == Tail)
-		{
-			delete Head;
-			Head = Tail = nullptr;
-			size--;
-			return;
-		}
-		Head = Head->pNext;
-		delete Head->pPrev;
-		Head->pPrev = nullptr;
-		size--;
-	}
-	void pop_back()
-	{
-		if (Head == Tail)
-		{
-			delete Tail;
-			Tail = Head = nullptr;
-			size--;
-			return;
-		}
-		Tail = Tail->pPrev;
-		delete Tail->pNext;
-		Tail->pNext = nullptr;
-		size--;
-	}
-	void erase(size_t index)
-	{
-		
-		if (index == 0)return pop_front();
-		if (index == size)return;
-		Element* Temp;
-		if (index < size / 2)
-		{
-			Temp = Head;
-			for (size_t i = 0; i < index; i++)Temp = Temp->pNext;
-		}
-		else
-		{
-			Temp = Tail;
-			for (size_t i = 0; i < index; i++)Temp = Temp->pPrev;
-		}
-		Element* Eraser;
-		Eraser = Temp;
-		Temp->pPrev->pNext = Temp->pNext;
-		Temp->pNext->pPrev = Temp->pPrev;
-		delete Eraser;
-		size--;
-	}
+	void pop_front();
+	void pop_back();
+	void erase(size_t index);
 
 	                        // Methods:
 
-	void print()
-	{
-		cout << "Head: " << Head << endl;
-		for (Element* Temp = Head; Temp; Temp = Temp->pNext)
-		{
-			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
-		}
-			cout << "Количество элементов списка: " <<size<< endl;
-	}
-	void reverse_print()
-	{
-		cout << "Tail: " << Tail << endl;
-		for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
-		{
-			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
-		}
-			cout << "Количество элементов списка: " << size << endl;
-	}
+	void print();
+	void reverse_print();
 };
+
+size_t List::get_size() { return size; }
+List::ConstIterator List::begin() { return Head; }
+List::ConstIterator List::end() { return nullptr; }
+const List::ConstIterator List::cbegin()const { return Head; }
+const List::ConstIterator List::cend()const { return nullptr; }
+List::ConstReverseIterator List::rbegin() { return Tail; }
+List::ConstReverseIterator List::rend() { return nullptr; }
+const List::ConstReverseIterator List::crbegin()const { return Tail; }
+const List::ConstReverseIterator List::crend()const { return nullptr; }
+
+List::List()
+{
+	Head = Tail = nullptr;
+	size = 0;
+	cout << "LConstructor:\t" << this << endl;
+}
+List::List(size_t size, int value) :List()
+{
+	while (size--)push_back(value);
+	cout << "LConstructor:\t" << this << endl;
+}
+List::List(const std::initializer_list<int>& il) :List()
+{
+	cout << typeid(il.begin()).name() << endl;
+	for (int const* it = il.begin(); it != il.end(); it++)
+		push_back(*it);
+}
+List::List(const List& other) : List()
+{
+	for (ConstIterator it = other.cbegin(); it != other.cend(); it++)
+		push_back(*it);
+	cout << "LCopyConstructor\t" << this << endl;
+}
+List::List(List&& other)
+{
+	this->size = other.size;
+	this->Head = other.Head;
+	this->Tail = other.Tail;
+	other.Head = other.Tail = nullptr;
+	cout << "LMoveConstructor\t" << this << endl;
+}
+List::~List()
+{
+	//while (Head)pop_front();
+	while (Tail)pop_back();
+	cout << "LDestructor:\t" << this << endl;
+}
+
+// Operators
+int& List::operator[](size_t index)
+{
+	if (index >= size)throw std::exception("Error: out of range");
+	Element* Temp;
+	if (index < size / 2)
+	{
+		Temp = Head;
+		for (int i = 0; i < index; i++)Temp = Temp->pNext;
+	}
+	else
+	{
+		Temp = Tail;
+		for (int i = 0; i < size - index - 1; i++)Temp = Temp->pPrev;
+	}
+	return Temp->Data;
+}
+
+// Edd elements
+
+void List::push_front(int Data)
+{
+	if (Head == nullptr && Tail == nullptr)
+	{
+		Head = Tail = new Element(Data);
+		size++;
+		return;
+	}
+	Element* New = new Element(Data);
+	New->pNext = Head;
+	Head->pPrev = New;
+	Head = New;
+	size++;
+}
+void List::push_back(int Data)
+{
+	if (Head == nullptr && Tail == nullptr)
+	{
+		Head = Tail = new Element(Data);
+		size++;
+		return;
+	}
+	Element* New = new Element(Data);
+	New->pPrev = Tail;
+	Tail->pNext = New;
+	Tail = New;
+	size++;
+
+}
+void List::insert(size_t index, int Data)
+{
+	if (index > size)return;
+	if (index == 0)return push_front(Data);
+	if (index == size)return push_back(Data);
+	Element* Temp;
+	if (index < size / 2)
+	{
+		Temp = Head;
+		for (size_t i = 0; i < index; i++)Temp = Temp->pNext;
+	}
+	else
+	{
+		Temp = Tail;
+		for (size_t i = 0; i < index; i++)Temp = Temp->pPrev;
+	}
+	Element* New = new Element(Data);
+	New->pPrev = Temp->pPrev;
+	New->pNext = Temp;
+	Temp->pPrev->pNext = New;
+	Temp->pPrev = New;
+	size++;
+}
+
+//Removing elements:
+
+void List::pop_front()
+{
+	if (Head == Tail)
+	{
+		delete Head;
+		Head = Tail = nullptr;
+		size--;
+		return;
+	}
+	Head = Head->pNext;
+	delete Head->pPrev;
+	Head->pPrev = nullptr;
+	size--;
+}
+void List::pop_back()
+{
+	if (Head == Tail)
+	{
+		delete Tail;
+		Tail = Head = nullptr;
+		size--;
+		return;
+	}
+	Tail = Tail->pPrev;
+	delete Tail->pNext;
+	Tail->pNext = nullptr;
+	size--;
+}
+void List::erase(size_t index)
+{
+
+	if (index == 0)return pop_front();
+	if (index == size)return;
+	Element* Temp;
+	if (index < size / 2)
+	{
+		Temp = Head;
+		for (size_t i = 0; i < index; i++)Temp = Temp->pNext;
+	}
+	else
+	{
+		Temp = Tail;
+		for (size_t i = 0; i < index; i++)Temp = Temp->pPrev;
+	}
+	Element* Eraser;
+	Eraser = Temp;
+	Temp->pPrev->pNext = Temp->pNext;
+	Temp->pNext->pPrev = Temp->pPrev;
+	delete Eraser;
+	size--;
+}
+
+void List::print()
+{
+	cout << "Head: " << Head << endl;
+	for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+	{
+		cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+	}
+	cout << "Количество элементов списка: " << size << endl;
+}
+void List::reverse_print()
+{
+	cout << "Tail: " << Tail << endl;
+	for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
+	{
+		cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
+	}
+	cout << "Количество элементов списка: " << size << endl;
+}
+
 List operator+(const List& left, const List& right)
 {
 	List cat = left;
